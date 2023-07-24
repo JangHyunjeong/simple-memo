@@ -2,7 +2,7 @@ import styled from "styled-components";
 import FontSize from "../styles/FontSize";
 
 const AppTitleStyle = styled.header`
-  margin: 0 0 30px;
+  margin: 0 0 40px;
 
   h1 {
     font-size: ${FontSize.large};

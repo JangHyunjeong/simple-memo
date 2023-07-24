@@ -2,7 +2,6 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { Routes, Route } from "react-router-dom";
 
 // constant
-import Colors from "./styles/Colors";
 
 // components
 import { AppBackground } from "./components/AppBackground";
@@ -11,6 +10,7 @@ import { AppTitle } from "./components/AppTitle";
 
 // pages
 import { ListPage } from "./pages/ListPage";
+import { WritePage } from "./pages/WritePage";
 
 function App() {
   return (
@@ -24,6 +24,9 @@ function App() {
           <Routes>
             {/* 1. 메인페이지 */}
             <Route path="/" element={<ListPage></ListPage>}></Route>
+
+            {/* 2. 작성페이지 */}
+            <Route path="/write" element={<WritePage></WritePage>}></Route>
           </Routes>
         </AppContainer>
       </AppBackground>
