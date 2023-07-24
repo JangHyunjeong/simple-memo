@@ -11,6 +11,7 @@ import { AppTitle } from "./components/AppTitle";
 // pages
 import { ListPage } from "./pages/ListPage";
 import { WritePage } from "./pages/WritePage";
+import { ViewPage } from "./pages/ViewPage";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
 
             {/* 2. 작성페이지 */}
             <Route path="/write" element={<WritePage></WritePage>}></Route>
+
+            {/* 3. 뷰페이지 */}
+            <Route path="/view" element={<ViewPage></ViewPage>}></Route>
           </Routes>
         </AppContainer>
       </AppBackground>
