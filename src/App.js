@@ -1,5 +1,5 @@
-// import { styled, css } from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
+import { Routes, Route } from "react-router-dom";
 
 // constant
 import Colors from "./styles/Colors";
@@ -8,9 +8,9 @@ import Colors from "./styles/Colors";
 import { AppBackground } from "./components/AppBackground";
 import { AppContainer } from "./components/AppContainer";
 import { AppTitle } from "./components/AppTitle";
-import { Search } from "./components/Search";
-import { Button } from "./components/Button";
-import { List } from "./components/List";
+
+// pages
+import { ListPage } from "./pages/ListPage";
 
 function App() {
   return (
@@ -21,15 +21,10 @@ function App() {
         <AppContainer>
           <AppTitle></AppTitle>
 
-          <div className="router">
-            <Search></Search>
-
-            <List></List>
-
-            <Button bg={Colors.blue} style={{ marginTop: "20px" }}>
-              메모작성
-            </Button>
-          </div>
+          <Routes>
+            {/* 1. 메인페이지 */}
+            <Route path="/" element={<ListPage></ListPage>}></Route>
+          </Routes>
         </AppContainer>
       </AppBackground>
     </div>
