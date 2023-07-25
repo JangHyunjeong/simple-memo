@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
+import { uuid4 } from "uuid4";
 
 // constant
 import FontSize from "../styles/FontSize";
@@ -6,6 +9,7 @@ import Colors from "../styles/Colors";
 
 // components
 import { Button } from "../components/Button";
+import { useState } from "react";
 
 const WriteLayout = styled.section`
   h2{
@@ -44,17 +48,86 @@ const WriteLayout = styled.section`
 `;
 
 const WritePage = function () {
+  const navigate = useNavigate();
+  const timeStamp = moment().format("YYYY-MM-DD HH:mm:ss");
+  const id = uuid4();
+  let [memoList, setMemoList] = useState(
+    JSON.parse(localStorage.getItem("memoList")) !== null
+      ? JSON.parse(localStorage.getItem("memoList"))
+      : []
+  );
+
+  let [title, setTitle] = useState("");
+  let [content, setContent] = useState("");
+
+  // title 가져오기
+  function getTitle(e) {
+    setTitle(e.target.value);
+  }
+  // content 가져오기
+  function getContent(e) {
+    setContent(e.target.value);
+  }
+  // 게시글 create
+  function createMemo() {
+    const data = {
+      id: id,
+      dateTieme: timeStamp,
+      title: title,
+      content: content,
+    };
+
+    let copy = memoList;
+    copy.unshift(data);
+
+    setMemoList(copy);
+    localStorage.setItem("memoList", JSON.stringify(copy));
+
+    setTitle("");
+    setContent("");
+    alert("작성완료");
+    navigate("/");
+  }
+
   return (
     <WriteLayout>
       <h2>새 메모 작성하기</h2>
 
-      <input placeholder="제목을 입력해주세요" aria-label="제목"></input>
+      <input
+        placeholder="제목을 입력해주세요"
+        aria-label="제목"
+        onInput={(e) => {
+          getTitle(e);
+        }}
+        value={title}
+      ></input>
 
-      <textarea placeholder="내용을 입력해주세요" aria-label="내용"></textarea>
+      <textarea
+        placeholder="내용을 입력해주세요"
+        aria-label="내용"
+        onInput={(e) => {
+          getContent(e);
+        }}
+        value={content}
+      ></textarea>
 
       <div className="button-group">
-        <Button bg={Colors.blue}>작성완료</Button>
-        <Button bg={Colors.black}>뒤로가기</Button>
+        <Button
+          bg={Colors.blue}
+          onClick={() => {
+            createMemo();
+          }}
+        >
+          작성완료
+        </Button>
+        <Button
+          bg={Colors.black}
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          뒤로가기
+        </Button>
       </div>
     </WriteLayout>
   );
