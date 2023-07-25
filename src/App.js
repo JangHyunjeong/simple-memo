@@ -30,7 +30,7 @@ function App() {
             <Route path="/write" element={<WritePage></WritePage>}></Route>
 
             {/* 3. 뷰페이지 */}
-            <Route path="/view" element={<ViewPage></ViewPage>}></Route>
+            <Route path="/view/:id" element={<ViewPage></ViewPage>}></Route>
           </Routes>
         </AppContainer>
       </AppBackground>

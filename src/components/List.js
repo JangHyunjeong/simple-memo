@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import FontSize from "../styles/FontSize";
 import Colors from "../styles/Colors";
 import { Ellipsis } from "../styles/Ellipsis";
@@ -46,6 +48,7 @@ const Card = styled.li`
 `;
 
 export const List = function () {
+  const navigate = useNavigate();
   let [memoList] = useState(JSON.parse(localStorage.getItem("memoList")));
 
   return (
@@ -59,7 +62,12 @@ export const List = function () {
         ) : (
           memoList.map((item) => {
             return (
-              <Card key={item.id}>
+              <Card
+                key={item.id}
+                onClick={() => {
+                  navigate(`/view/${item.id}`);
+                }}
+              >
                 <h3>{item.title}</h3>
                 <time>{item.dateTime}</time>
                 <p>{item.content}</p>
