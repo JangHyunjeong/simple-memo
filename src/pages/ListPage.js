@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 // constant
 import Colors from "../styles/Colors";
@@ -8,13 +9,16 @@ import { Search } from "../components/Search";
 import { Button } from "../components/Button";
 import { List } from "../components/List";
 
-const ListPage = function (props) {
+const ListPage = function () {
   const navigate = useNavigate();
+  const memoList = useSelector((state) => {
+    return state.memoList;
+  });
 
   return (
     <div>
       <Search></Search>
-      <List memoList={props.memoList}></List>
+      <List memoList={memoList}></List>
       <Button
         bg={Colors.blue}
         style={{ marginTop: "20px" }}

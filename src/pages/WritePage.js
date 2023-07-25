@@ -1,7 +1,10 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { uuid4 } from "uuid4";
+import { updateMemoList } from "../store";
 
 // constant
 import FontSize from "../styles/FontSize";
@@ -9,7 +12,6 @@ import Colors from "../styles/Colors";
 
 // components
 import { Button } from "../components/Button";
-import { useState } from "react";
 
 const WriteLayout = styled.section`
   h2{
@@ -47,8 +49,12 @@ const WriteLayout = styled.section`
   }
 `;
 
-const WritePage = function (props) {
+const WritePage = function () {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const memoList = useSelector((state) => {
+    return state.memoList;
+  });
   const timeStamp = moment().format("YYYY-MM-DD HH:mm:ss");
   const id = uuid4();
 
@@ -72,11 +78,11 @@ const WritePage = function (props) {
       content: content,
     };
 
-    let copy = [...props.memoList];
+    let copy = [...memoList];
     copy.unshift(data);
 
     localStorage.setItem("memoList", JSON.stringify(copy));
-    props.updateMemoList();
+    dispatch(updateMemoList());
 
     setTitle("");
     setContent("");
