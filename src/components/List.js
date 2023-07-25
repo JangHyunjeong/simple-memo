@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import FontSize from "../styles/FontSize";
 import Colors from "../styles/Colors";
 import { Ellipsis } from "../styles/Ellipsis";
@@ -45,48 +46,27 @@ const Card = styled.li`
 `;
 
 export const List = function () {
+  let [memoList] = useState(JSON.parse(localStorage.getItem("memoList")));
+
   return (
     <ListLayout>
       <h2 className="visually-hidden">메모 리스트</h2>
       <CardList>
-        {/* NOTE :: 1. 등록된 메모 없을때 
-        <Empty>
-          <p>등록된 메모가 없습니다</p>
-        </Empty> */}
-
-        {/* NOTE :: 2. 등록된 메모 있을때*/}
-        <Card>
-          <h3>
-            노트 타이틀 영역입니다.노트 타이틀 영역입니다.노트 타이틀
-            영역입니다.노트 타이틀 영역입니다.노트 타이틀 영역입니다.
-          </h3>
-          <time>2분전</time>
-          <p>
-            노트 간략한 내용노트 간략한 내용노트 간략한 내용노트 간략한 내용노트
-            간략한 내용노트 간략한 내용노트 간략한 내용노트 간략한 내용노트
-            간략한 내용
-          </p>
-        </Card>
-        <Card>
-          <h3>노트 타이틀 영역입니다.</h3>
-          <time>2분전</time>
-          <p>노트 간략한 내용</p>
-        </Card>
-        <Card>
-          <h3>노트 타이틀 영역입니다.</h3>
-          <time>2분전</time>
-          <p>노트 간략한 내용</p>
-        </Card>
-        <Card>
-          <h3>노트 타이틀 영역입니다.</h3>
-          <time>2분전</time>
-          <p>노트 간략한 내용</p>
-        </Card>
-        <Card>
-          <h3>노트 타이틀 영역입니다.</h3>
-          <time>2분전</time>
-          <p>노트 간략한 내용</p>
-        </Card>
+        {memoList == null ? (
+          <Empty>
+            <p>등록된 메모가 없습니다</p>
+          </Empty>
+        ) : (
+          memoList.map((item) => {
+            return (
+              <Card key={item.id}>
+                <h3>{item.title}</h3>
+                <time>{item.dateTime}</time>
+                <p>{item.content}</p>
+              </Card>
+            );
+          })
+        )}
       </CardList>
     </ListLayout>
   );
