@@ -72,12 +72,12 @@ const WritePage = function () {
   function createMemo() {
     const data = {
       id: id,
-      dateTieme: timeStamp,
+      dateTime: timeStamp,
       title: title,
       content: content,
     };
 
-    let copy = memoList;
+    let copy = [...memoList];
     copy.unshift(data);
 
     setMemoList(copy);
