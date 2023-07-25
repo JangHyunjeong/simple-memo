@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // constant
@@ -46,30 +48,39 @@ const ViewLayout = styled.section`
 `;
 
 const ViewPage = function () {
+  const params = useParams();
+  const navigate = useNavigate();
+  const memoList = useSelector((state) => {
+    return state.memoList;
+  });
+  const memo = memoList.find((item) => {
+    return item.id === params.id;
+  });
+
   return (
     <ViewLayout>
       <h2 className="visually-hidden">뷰페이지</h2>
 
       <header>
-        <h3>
-          노트 타이틀 영역입니다.노트 타이틀 영역입니다.노트 타이틀
-          영역입니다.노트 타이틀 영역입니다.노트 타이틀 영역입니다.
-        </h3>
-        <time>2분전</time>
+        <h3>{memo.title}</h3>
+        <time>{memo.dateTime}</time>
       </header>
 
       <div className="content">
-        <p>
-          노트 간략한 내용노트 간략한 내용노트 간략한 내용노트 간략한 내용노트
-          간략한 내용노트 간략한 내용노트 간략한 내용노트 간략한 내용노트 간략한
-          내용
-        </p>
+        <p>{memo.content}</p>
       </div>
 
       <div className="button-group">
-        <Button bg={Colors.yellow}>수정하기</Button>
+        <Button
+          bg={Colors.yellow}
+          onClick={() => navigate(`/write/${params.id}`)}
+        >
+          수정하기
+        </Button>
         <Button bg={Colors.red}>삭제하기</Button>
-        <Button bg={Colors.black}>뒤로가기</Button>
+        <Button bg={Colors.black} onClick={() => navigate(-1)}>
+          뒤로가기
+        </Button>
       </div>
     </ViewLayout>
   );
