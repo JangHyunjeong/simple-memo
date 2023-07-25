@@ -47,15 +47,10 @@ const WriteLayout = styled.section`
   }
 `;
 
-const WritePage = function () {
+const WritePage = function (props) {
   const navigate = useNavigate();
   const timeStamp = moment().format("YYYY-MM-DD HH:mm:ss");
   const id = uuid4();
-  let [memoList, setMemoList] = useState(
-    JSON.parse(localStorage.getItem("memoList")) !== null
-      ? JSON.parse(localStorage.getItem("memoList"))
-      : []
-  );
 
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
@@ -77,11 +72,11 @@ const WritePage = function () {
       content: content,
     };
 
-    let copy = [...memoList];
+    let copy = [...props.memoList];
     copy.unshift(data);
 
-    setMemoList(copy);
     localStorage.setItem("memoList", JSON.stringify(copy));
+    props.updateMemoList();
 
     setTitle("");
     setContent("");

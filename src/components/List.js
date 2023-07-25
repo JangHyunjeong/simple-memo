@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import FontSize from "../styles/FontSize";
@@ -47,20 +46,19 @@ const Card = styled.li`
   }
 `;
 
-export const List = function () {
+export const List = function (props) {
   const navigate = useNavigate();
-  let [memoList] = useState(JSON.parse(localStorage.getItem("memoList")));
 
   return (
     <ListLayout>
       <h2 className="visually-hidden">메모 리스트</h2>
       <CardList>
-        {memoList == null ? (
+        {props.memoList.length === 0 ? (
           <Empty>
             <p>등록된 메모가 없습니다</p>
           </Empty>
         ) : (
-          memoList.map((item) => {
+          props.memoList.map((item) => {
             return (
               <Card
                 key={item.id}
