@@ -31,18 +31,19 @@ const Card = styled.li`
     font-size: ${FontSize.medium};
     font-weight: 500;
     line-height: 1.2em;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    ${Ellipsis}
+  }
+  p {
+    margin-bottom: 12px;
+    line-height: 1.2em;
+    color: ${Colors.grey};
     ${Ellipsis}
   }
   time {
     display: block;
+    font-size: ${FontSize.small};
     color: ${Colors.grey};
-    margin-bottom: 20px;
-  }
-  p {
-    line-height: 1.2em;
-    color: ${Colors.grey};
-    ${Ellipsis}
   }
 `;
 
@@ -67,8 +68,8 @@ export const List = function (props) {
                 }}
               >
                 <h3>{item.title}</h3>
-                <time>{item.dateTime}</time>
                 <p>{item.content}</p>
+                <time>{item.dateTime}</time>
               </Card>
             );
           })
