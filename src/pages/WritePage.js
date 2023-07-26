@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { uuid4 } from "uuid4";
 import { updateMemoList } from "../store";
@@ -50,16 +50,33 @@ const WriteLayout = styled.section`
 `;
 
 const WritePage = function () {
+  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const memoList = useSelector((state) => {
     return state.memoList;
   });
+  let currentIdx = null;
+  if (params.id !== null) {
+    currentIdx = memoList.findIndex((item) => {
+      return item.id === params.id;
+    });
+  }
   const timeStamp = moment().format("YYYY-MM-DD HH:mm:ss");
   const id = uuid4();
 
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
+
+  useEffect(() => {
+    if (params.id === undefined) {
+      setTitle("");
+      setContent("");
+    } else {
+      setTitle(memoList[currentIdx].title);
+      setContent(memoList[currentIdx].content);
+    }
+  }, [currentIdx, memoList, params.id]);
 
   // title 가져오기
   function getTitle(e) {
@@ -69,25 +86,51 @@ const WritePage = function () {
   function getContent(e) {
     setContent(e.target.value);
   }
-  // 게시글 create
+
+  // 메모 create
   function createMemo() {
-    const data = {
-      id: id,
-      dateTime: timeStamp,
-      title: title,
-      content: content,
-    };
+    if (title === "") {
+      alert("제목을 입력해주세요");
+    } else if (content === "") {
+      alert("내용을 입력해주세요");
+    } else {
+      const data = {
+        id: id,
+        dateTime: timeStamp,
+        title: title,
+        content: content,
+      };
 
-    let copy = [...memoList];
-    copy.unshift(data);
+      let copy = [...memoList];
+      copy.unshift(data);
 
-    localStorage.setItem("memoList", JSON.stringify(copy));
-    dispatch(updateMemoList());
+      localStorage.setItem("memoList", JSON.stringify(copy));
+      dispatch(updateMemoList());
+      navigate("/");
+    }
+  }
 
-    setTitle("");
-    setContent("");
-    alert("작성완료");
-    navigate("/");
+  // 메모 update
+  function updateMemo() {
+    if (title === "") {
+      alert("제목을 입력해주세요");
+    } else if (content === "") {
+      alert("내용을 입력해주세요");
+    } else {
+      const data = {
+        id: memoList[currentIdx].id,
+        dateTime: memoList[currentIdx].dateTime,
+        title: title,
+        content: content,
+      };
+
+      let copy = [...memoList];
+      copy.splice(currentIdx, 1, data);
+
+      localStorage.setItem("memoList", JSON.stringify(copy));
+      dispatch(updateMemoList());
+      navigate(`/view/${memoList[currentIdx].id}`);
+    }
   }
 
   return (
@@ -113,14 +156,26 @@ const WritePage = function () {
       ></textarea>
 
       <div className="button-group">
-        <Button
-          bg={Colors.blue}
-          onClick={() => {
-            createMemo();
-          }}
-        >
-          작성완료
-        </Button>
+        {params.id === undefined ? (
+          <Button
+            bg={Colors.blue}
+            onClick={() => {
+              createMemo();
+            }}
+          >
+            작성완료
+          </Button>
+        ) : (
+          <Button
+            bg={Colors.blue}
+            onClick={() => {
+              updateMemo();
+            }}
+          >
+            수정완료
+          </Button>
+        )}
+
         <Button
           bg={Colors.black}
           onClick={() => {

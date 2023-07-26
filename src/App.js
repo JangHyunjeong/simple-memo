@@ -1,5 +1,5 @@
-import GlobalStyle from "./styles/GlobalStyle";
 import { Routes, Route } from "react-router-dom";
+import GlobalStyle from "./styles/GlobalStyle";
 
 // components
 import { AppBackground } from "./components/AppBackground";
@@ -25,7 +25,9 @@ function App() {
             <Route path="/" element={<ListPage></ListPage>}></Route>
 
             {/* 2. 작성페이지 */}
-            <Route path="/write" element={<WritePage></WritePage>}></Route>
+            <Route path="write" element={<WritePage></WritePage>}>
+              <Route path=":id" element={<WritePage></WritePage>}></Route>
+            </Route>
 
             {/* 3. 뷰페이지 */}
             <Route path="/view/:id" element={<ViewPage></ViewPage>}></Route>
