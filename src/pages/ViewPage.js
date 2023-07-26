@@ -78,8 +78,8 @@ const ViewPage = function () {
           수정하기
         </Button>
         <Button bg={Colors.red}>삭제하기</Button>
-        <Button bg={Colors.black} onClick={() => navigate(-1)}>
-          뒤로가기
+        <Button bg={Colors.black} onClick={() => navigate(`/`)}>
+          목록으로
         </Button>
       </div>
     </ViewLayout>
