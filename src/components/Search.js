@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { getSearchResult } from "../store";
+
 import Colors from "../styles/Colors";
 import { FlexCenterBetween } from "../styles/Flex";
 
@@ -24,6 +28,18 @@ const SearchSelect = styled.select`
 `;
 
 const Search = function () {
+  const dispatch = useDispatch();
+
+  let [keyword, setKeyword] = useState("");
+
+  function setSearchKeyword(e) {
+    setKeyword(e.target.value);
+  }
+
+  useEffect(() => {
+    dispatch(getSearchResult(keyword));
+  }, [dispatch, keyword]);
+
   return (
     <SearchStyle>
       <h2 className="visually-hidden">검색하기</h2>
@@ -31,6 +47,10 @@ const Search = function () {
         type="text"
         aria-label="검색어를 입력해주세요"
         placeholder="검색어를 입력해주세요"
+        onInput={(e) => {
+          setSearchKeyword(e);
+        }}
+        value={keyword}
       ></SearchInput>
       <SearchSelect aria-label="정렬변경">
         <option>최근등록순</option>
