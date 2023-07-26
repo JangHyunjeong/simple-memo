@@ -158,7 +158,7 @@ const WritePage = function () {
       <div className="button-group">
         {params.id === undefined ? (
           <Button
-            bg={Colors.blue}
+            $bg={Colors.blue}
             onClick={() => {
               createMemo();
             }}
@@ -167,7 +167,7 @@ const WritePage = function () {
           </Button>
         ) : (
           <Button
-            bg={Colors.blue}
+            $bg={Colors.blue}
             onClick={() => {
               updateMemo();
             }}
@@ -177,7 +177,7 @@ const WritePage = function () {
         )}
 
         <Button
-          bg={Colors.black}
+          $bg={Colors.black}
           onClick={() => {
             navigate(-1);
           }}

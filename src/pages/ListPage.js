@@ -20,7 +20,7 @@ const ListPage = function () {
       <Search></Search>
       <List memoList={memoList}></List>
       <Button
-        bg={Colors.blue}
+        $bg={Colors.blue}
         style={{ marginTop: "20px" }}
         onClick={() => {
           navigate("/write");

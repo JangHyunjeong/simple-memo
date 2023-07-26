@@ -72,13 +72,13 @@ const ViewPage = function () {
 
       <div className="button-group">
         <Button
-          bg={Colors.yellow}
+          $bg={Colors.yellow}
           onClick={() => navigate(`/write/${params.id}`)}
         >
           수정하기
         </Button>
-        <Button bg={Colors.red}>삭제하기</Button>
-        <Button bg={Colors.black} onClick={() => navigate(`/`)}>
+        <Button $bg={Colors.red}>삭제하기</Button>
+        <Button $bg={Colors.black} onClick={() => navigate(`/`)}>
           목록으로
         </Button>
       </div>
