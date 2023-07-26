@@ -1,6 +1,7 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { updateMemoList } from "../store";
 
 // constant
 import FontSize from "../styles/FontSize";
@@ -50,24 +51,34 @@ const ViewLayout = styled.section`
 const ViewPage = function () {
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const memoList = useSelector((state) => {
     return state.memoList;
   });
-  const memo = memoList.find((item) => {
+  const currentIdx = memoList.findIndex((item) => {
     return item.id === params.id;
   });
+
+  // 삭제하기 구현
+  function deleteMemo() {
+    let copy = [...memoList];
+    copy.splice(currentIdx, 1);
+    localStorage.setItem("memoList", JSON.stringify(copy));
+    dispatch(updateMemoList());
+    navigate("/");
+  }
 
   return (
     <ViewLayout>
       <h2 className="visually-hidden">뷰페이지</h2>
 
       <header>
-        <h3>{memo.title}</h3>
-        <time>{memo.dateTime}</time>
+        <h3>{memoList[currentIdx].title}</h3>
+        <time>{memoList[currentIdx].dateTime}</time>
       </header>
 
       <div className="content">
-        <p>{memo.content}</p>
+        <p>{memoList[currentIdx].content}</p>
       </div>
 
       <div className="button-group">
@@ -77,7 +88,14 @@ const ViewPage = function () {
         >
           수정하기
         </Button>
-        <Button $bg={Colors.red}>삭제하기</Button>
+        <Button
+          $bg={Colors.red}
+          onClick={() => {
+            deleteMemo();
+          }}
+        >
+          삭제하기
+        </Button>
         <Button $bg={Colors.black} onClick={() => navigate(`/`)}>
           목록으로
         </Button>
