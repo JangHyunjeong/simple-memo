@@ -29,10 +29,37 @@ const memoList = createSlice({
         return copy;
       }
     },
+
+    // 정렬하기
+    sortMemoList(state, sortOption) {
+      sortOption = parseFloat(sortOption.payload);
+
+      let copy =
+        JSON.parse(localStorage.getItem("memoList")) !== null
+          ? JSON.parse(localStorage.getItem("memoList"))
+          : [];
+
+      // 정렬하기 - 최신순
+      if (sortOption === 0) {
+        copy.sort((a, b) => {
+          return new Date(b.dateTime) - new Date(a.dateTime);
+        });
+        return copy;
+      }
+
+      // 정렬하기 - 등록순
+      if (sortOption === 1) {
+        copy.sort((a, b) => {
+          return new Date(a.dateTime) - new Date(b.dateTime);
+        });
+        return copy;
+      }
+    },
   },
 });
 
-export const { updateMemoList, getSearchResult } = memoList.actions;
+export const { updateMemoList, getSearchResult, sortMemoList } =
+  memoList.actions;
 
 export default configureStore({
   reducer: {

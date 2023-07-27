@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { getSearchResult } from "../store";
+import { getSearchResult, sortMemoList } from "../store";
 
 import Colors from "../styles/Colors";
 import { FlexCenterBetween } from "../styles/Flex";
@@ -30,15 +30,17 @@ const SearchSelect = styled.select`
 const Search = function () {
   const dispatch = useDispatch();
 
+  // 검색하기
   let [keyword, setKeyword] = useState("");
-
   function setSearchKeyword(e) {
     setKeyword(e.target.value);
   }
-
   useEffect(() => {
     dispatch(getSearchResult(keyword));
   }, [dispatch, keyword]);
+
+  // 정렬변경
+  const selectOption = ["최신순", "등록순"];
 
   return (
     <SearchStyle>
@@ -52,9 +54,19 @@ const Search = function () {
         }}
         value={keyword}
       ></SearchInput>
-      <SearchSelect aria-label="정렬변경">
-        <option>최근등록순</option>
-        <option>최초등록순</option>
+      <SearchSelect
+        aria-label="정렬변경"
+        onChange={(e) => {
+          dispatch(sortMemoList(e.target.value));
+        }}
+      >
+        {selectOption.map((item, idx) => {
+          return (
+            <option key={idx} value={idx}>
+              {item}
+            </option>
+          );
+        })}
       </SearchSelect>
     </SearchStyle>
   );
