@@ -21,7 +21,7 @@
 
 - JavaScript
 - React.js (Router, Redux)
-- SCSS
+- Styled-Components
   <br>
   <br>
 
