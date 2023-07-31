@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Colors from "../styles/Colors";
 import { FlexCenter } from "../styles/Flex";
+import bg from "../images/bg.jpg";
 
 export const AppBackground = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: ${Colors.black};
+  background: url(${bg}) no-repeat center / cover;
   ${FlexCenter}
 `;
