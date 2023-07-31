@@ -14,7 +14,7 @@ import Colors from "../styles/Colors";
 import { Button } from "../components/Button";
 
 const WriteLayout = styled.section`
-  h2{
+  h2 {
     margin-bottom: 20px;
     font-size: ${FontSize.medium};
     font-weight: 500;
@@ -35,7 +35,7 @@ const WriteLayout = styled.section`
     width: 100%;
     height: 300px;
     padding: 10px;
-    line-height: 1.6em;s
+    line-height: 1.6em;
     border: 1px solid ${Colors.border};
     border-radius: 4px;
   }
