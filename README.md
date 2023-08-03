@@ -7,7 +7,7 @@
 
 ## 배포 url
 
-- 진행중
+- https://janghyunjeong.github.io/simple-memo/
   <br>
   <br>
 
@@ -20,8 +20,7 @@
 ## 사용 기술
 
 - JavaScript
-- React.js (Router, Redux)
-- Styled-Components
+- React.js (Router, Redux, Styled-Components)
   <br>
   <br>
 
