@@ -76,8 +76,7 @@ const WritePage = function () {
       setTitle(memoList[currentIdx].title);
       setContent(memoList[currentIdx].content);
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [currentIdx, memoList, params.id]);
 
   // title 가져오기
   function getTitle(e) {
