@@ -61,7 +61,7 @@ const ViewPage = function () {
 
   // 삭제하기 구현
   function deleteMemo() {
-    let copy = [...memoList];
+    const copy = [...memoList];
     copy.splice(currentIdx, 1);
     localStorage.setItem("memoList", JSON.stringify(copy));
     dispatch(updateMemoList());

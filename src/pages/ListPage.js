@@ -49,7 +49,7 @@ const ListPage = function () {
     setSearchKeyword(value);
 
     if (value !== "") {
-      let result = memoListOri.filter((item) => {
+      const result = memoListOri.filter((item) => {
         return (
           item.title.toUpperCase().includes(value.toUpperCase()) ||
           item.content.toUpperCase().includes(value.toUpperCase())

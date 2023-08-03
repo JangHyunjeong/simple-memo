@@ -65,8 +65,8 @@ const WritePage = function () {
   const timeStamp = moment().format("YYYY-MM-DD HH:mm:ss");
   const id = uuid4();
 
-  let [title, setTitle] = useState("");
-  let [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     if (params.id === undefined) {
@@ -101,7 +101,7 @@ const WritePage = function () {
         content: content,
       };
 
-      let copy = [...memoList];
+      const copy = [...memoList];
       copy.unshift(data);
 
       localStorage.setItem("memoList", JSON.stringify(copy));
@@ -124,7 +124,7 @@ const WritePage = function () {
         content: content,
       };
 
-      let copy = [...memoList];
+      const copy = [...memoList];
       copy.splice(currentIdx, 1, data);
 
       localStorage.setItem("memoList", JSON.stringify(copy));
